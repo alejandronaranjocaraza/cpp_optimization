@@ -2,7 +2,7 @@
 
 *Developed as part of the Numerical Optimization course at ITAM. Revisited and refactored for clarity.*
 
-Implementation of gradient-based optimization algorithms using finite difference derivatives, built with [Eigen](https://eigen.tuxfamily.org/).
+Implementation of gradient-based optimization algorithms using finite difference derivatives, built with [Eigen](https://libeigen.gitlab.io/eigen/docs-5.0/GettingStarted.html).
 
 ## Algorithms
 
