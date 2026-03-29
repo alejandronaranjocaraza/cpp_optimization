@@ -1,37 +1,30 @@
-// g++ -I ~/eigen-3.4.0 main.cpp
+// Build: g++ -I ~/eigen-3.4.0 -O2 main.cpp optimization_functions.cpp grads.cpp funcs.cpp -o optimizer
+
 #include "optimization_dependencies.h"
 #include <Eigen/Dense>
-#include <cmath>
 #include <iomanip>
 #include <iostream>
-#include <vector>
+
+static void print_result(const std::string &label, const Eigen::VectorXd &x) {
+  std::cout << label << ": ";
+  std::cout << std::fixed << std::setprecision(4);
+  for (int i = 0; i < x.size(); ++i) {
+    std::cout << (std::abs(x(i)) < 5e-3 ? 0.0 : x(i));
+    if (i < x.size() - 1) std::cout << ", ";
+  }
+  std::cout << "\n";
+}
 
 int main() {
-  // Ensure x is an Eigen::VectorXd, not a std::vector<double>
-  Eigen::VectorXd x(2);
-  x << 6.0, 4.0;
-  Eigen::VectorXd xf_gd = gradient_descent(x, banana);
-  Eigen::VectorXd xf_nd = newton_descent(x, banana);
+  Eigen::VectorXd x0(2);
+  x0 << 6.0, 4.0;
 
-  std::cout << "Optimized x (gradient descent): ";
-  std::cout << std::setprecision(2) << std::fixed;
-  for (int i = 0; i < xf_gd.size(); ++i) {
-    if (xf_gd[i] > -0.05 && xf_gd[i] < 0.05) {
-      std::cout << 0.00 << " ";
-    } else {
-      std::cout << xf_gd[i] << " ";
-    }
-  }
-  std::cout << std::endl;
-  std::cout << "Optimized x (newton descent): ";
-  std::cout << std::setprecision(2) << std::fixed;
-  for (int i = 0; i < xf_nd.size(); ++i) {
-    if (xf_nd[i] > -0.05 && xf_nd[i] < 0.05) {
-      std::cout << 0.00 << " ";
-    } else {
-      std::cout << xf_nd[i] << " ";
-    }
-  }
-  std::cout << std::endl;
+  const Eigen::VectorXd xf_gd = gradient_descent(x0, banana);
+  const Eigen::VectorXd xf_nd = newton_descent(x0, banana);
+
+  std::cout << "Rosenbrock minimization from x0 = (6, 4)\n";
+  print_result("Gradient descent", xf_gd);
+  print_result("Newton's method ", xf_nd);
+
   return 0;
 }
