@@ -1,6 +1,9 @@
 // Build: g++ -I ~/eigen-3.4.0 -O2 main.cpp optimization_functions.cpp grads.cpp funcs.cpp -o optimizer
 
-#include "optimization_dependencies.h"
+#include "include/funcs.h"
+#include "include/grads.h"
+#include "include/optimization.h"
+
 #include <Eigen/Dense>
 #include <iomanip>
 #include <iostream>

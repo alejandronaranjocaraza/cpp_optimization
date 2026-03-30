@@ -1,4 +1,4 @@
-#include "optimization_dependencies.h"
+#include "../include/optimization.h"
 #include <Eigen/Dense>
 #include <cmath>
 
@@ -7,12 +7,15 @@
 //   (1) Armijo sufficient decrease: f(x + a*p) <= f(x) + c1*a*grad^T*p
 //   (2) Curvature condition:        grad(x + a*p)^T*p >= c2*grad^T*p
 // See Nocedal & Wright (2006), Ch. 3
-Eigen::VectorXd gradient_descent(Eigen::VectorXd x0,
-                                 double (*fun)(const Eigen::VectorXd &)) {
+Eigen::VectorXd gradient_descent(
+    Eigen::VectorXd x0,
+    double (*fun)(const Eigen::VectorXd &),
+    const double tol,
+    const int max_iter
+    ) {
+
   const double c1 = 1e-4;
   const double c2 = 0.9;
-  const double tol = 1e-5;
-  const int max_iter = 10000;
  
   Eigen::VectorXd xk = x0;
   Eigen::VectorXd grad = gradient(x0, fun);
@@ -43,10 +46,13 @@ Eigen::VectorXd gradient_descent(Eigen::VectorXd x0,
 // Solved via LDLT factorization — numerically stable for symmetric matrices
 // Converges quadratically near minimum, but no line search so may diverge far from it
 // See Nocedal & Wright (2006), Ch. 3
-Eigen::VectorXd newton_descent(Eigen::VectorXd x0,
-                               double (*fun)(const Eigen::VectorXd &)) {
-  const int max_iter = 10000;
-  const double tol = 1e-5;
+Eigen::VectorXd newton_descent(
+    Eigen::VectorXd x0,
+    double (*fun)(const Eigen::VectorXd &),
+    const double tol,
+    const int max_iter
+    ) {
+  
   Eigen::VectorXd xk = x0;
   for (int iter = 0; iter < max_iter; ++iter) {
     const Eigen::VectorXd grad = gradient(xk, fun);

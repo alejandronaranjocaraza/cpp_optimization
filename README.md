@@ -33,8 +33,10 @@ Implementation of gradient-based optimization algorithms using finite difference
 Requires [Eigen 3.x](https://eigen.tuxfamily.org/). On Debian based systems:
 ```bash
 sudo apt install libeigen3-dev
-g++ -I /usr/include/eigen3 -O2 main.cpp optimization_functions.cpp grads.cpp funcs.cpp -o optimizer
-./optimizer
+mkdir build && cd build
+cmake ..
+make
+./optimize
 ```
 
 ## References

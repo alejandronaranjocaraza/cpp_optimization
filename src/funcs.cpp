@@ -1,4 +1,4 @@
-#include "optimization_dependencies.h"
+#include "../include/funcs.h"
 #include <Eigen/Dense>
 #include <cmath>
 
