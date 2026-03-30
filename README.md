@@ -1,4 +1,4 @@
-# Numerical Optimization in C++
+# Basic Numerical Optimization in C++
 
 *Developed as part of the Numerical Optimization course. Revisited and refactored for clarity.*
 
